@@ -12,6 +12,12 @@ def get_var(key):
 
 def compile(input):
     output = ''
-    lines = re.split('[\s;]+', input)
+    lines = re.split('[\n\t;]+', input)
 
-    return lines
+    for line in lines:
+        tokens = re.split('\s+', line)
+        for i, token in enumerate(tokens):
+            if token in data_types:
+                assign_var(tokens[i+1], tokens[i+3])
+
+    return var

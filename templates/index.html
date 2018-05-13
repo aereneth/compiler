@@ -50,7 +50,12 @@
            data: $(e.target).serializeArray(),
            dataType: 'JSON'
        }).done(function(data) {
-           $('#output').val(data['output']);
+           var output = "";
+           console.log(data['output']);
+           for(var i in data['output']) {
+               output += `${i} = ${data['output'][i]}\n`;
+           }
+           $('#output').val(output);
        });
 
        e.preventDefault();
