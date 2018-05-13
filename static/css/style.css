@@ -1,0 +1,13 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.main-page {
+    background-image: url('../img/bg.jpg');
+}
+
+.bg-wallpaper {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
