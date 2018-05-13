@@ -11,3 +11,8 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.compiler-box {
+    resize: none;
+    font-family: 'Source Code Pro', monospace;
+}

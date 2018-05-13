@@ -2,15 +2,58 @@
 
 {% block content %}
 <div class="container-fluid full-page main-page bg-wallpaper">
-    <h2 class="text-center text-uppercase">ONLINE COMPILER</h2>
+    <h1 class="text-center text-uppercase text-white font-weight-bold">ONLINE COMPILER</h1>
 
     <div class="row">
-        <div class="col-md-6 h-100">
-            <textarea class="form-input h-100" name="input" id="input" cols="80"></textarea>
+        <div class="col-12">
+            <div class="btn-group btn-group-lg mb-2">
+                <button type="submit" form="compilerForm" class="btn btn-success"><i class="fa fa-play"></i> Run</button>
+                <button class="btn btn-secondary"><i class="fa fa-eraser"></i> Clear</button>
+            </div>
         </div>
-        <div class="col-md-6 h-100">
-            <textarea class="form-input h-100" name="input" id="input" cols="80"></textarea>
+        <div class="col-md-6">
+            <form id="compilerForm" onsubmit="onCompile(event)">
+                <textarea class="form-control compiler-box border-0 rounded-0" name="input" id="input" rows="30" cols="80" autofocus></textarea>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control compiler-box bg-dark text-white border-0 rounded-0" name="output" id="output" rows="30" cols="80" readonly></textarea>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $("textarea").keydown(function(e) {
+        if(e.keyCode === 9) {
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+
+            var $this = $(this);
+            var value = $this.val();
+
+            $this.val(value.substring(0, start)
+                        + "\t"
+                        + value.substring(end));
+
+            this.selectionStart = this.selectionEnd = start + 1;
+
+            e.preventDefault();
+        }
+    });
+
+    function onCompile(e) {
+       $.ajax({
+           url: '/api/compile',
+           method: 'POST',
+           data: $(e.target).serializeArray(),
+           dataType: 'JSON'
+       }).done(function(data) {
+           $('#output').val(data['output']);
+       });
+
+       e.preventDefault();
+    }
+</script>
 {% endblock %}
