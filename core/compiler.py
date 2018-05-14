@@ -2,7 +2,7 @@ import re
 
 var = {}
 
-data_types = ['int', 'char', 'double', 'float', 'void']
+data_type = ['int', 'char', 'double', 'float', 'void']
 
 def assign_var(key, val):
     var[key] = val
@@ -15,9 +15,9 @@ def compile(input):
     lines = re.split('[\n\t;]+', input)
 
     for line in lines:
-        tokens = re.split('\s+', line)
-        for i, token in enumerate(tokens):
-            if token in data_types:
-                assign_var(tokens[i+1], tokens[i+3])
+        lexemes = re.split('\s*', line)
+        for index, lexeme in enumerate(lexemes):
+            if lexeme in data_type and re.search('=', line):
+                assign_var(lexemes[index + 1], eval(re.split('=', line)[1]))
 
     return var
