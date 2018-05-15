@@ -19,5 +19,8 @@ def compile(input):
         for index, lexeme in enumerate(lexemes):
             if lexeme in data_type and re.search('=', line):
                 assign_var(lexemes[index + 1], eval(re.split('=', line)[1]))
+                break
+            if re.search('printf', lexeme):
+                output += "{}\n".format(var[re.findall('printf\((\w+)\)', lexeme)[0]])
 
-    return var
+    return output
