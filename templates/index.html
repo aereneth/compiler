@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="btn-group btn-group-lg mb-2">
                 <button type="submit" form="compilerForm" class="btn btn-success"><i class="fa fa-play"></i> Run</button>
-                <button class="btn btn-secondary"><i class="fa fa-eraser"></i> Clear</button>
+                <button class="btn btn-secondary" onclick="onClear(event)"><i class="fa fa-eraser"></i> Clear</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -59,6 +59,14 @@
        });
 
        e.preventDefault();
+    }
+
+    function onClear(e) {
+        e.preventDefault();
+
+        console.log('Click');
+
+        $('textarea').val('');
     }
 </script>
 {% endblock %}
