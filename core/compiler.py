@@ -1,23 +1,19 @@
+import os
 import re
+import subprocess
 
-var = {}
-
-data_types = ['int', 'char', 'double', 'float', 'void']
-
-def assign_var(key, val):
-    var[key] = val
-
-def get_var(key):
-    return var[key]
-
-def compile(input):
+def compile(code):
     output = ''
-    lines = re.split('[\n\t;]+', input)
 
-    for line in lines:
-        tokens = re.split('\s+', line)
-        for i, token in enumerate(tokens):
-            if token in data_types:
-                assign_var(tokens[i+1], tokens[i+3])
+    f = open('input.c', 'w')
+    f.write(code)
+    f.close()
 
-    return var
+    os.system('gcc -o output input.c')
+
+    if re.search('scanf', code):
+        output = 'ERROR\nCompiler does not support operation!'
+    else:
+        output = subprocess.check_output('./output').decode('utf-8')
+
+    return output
